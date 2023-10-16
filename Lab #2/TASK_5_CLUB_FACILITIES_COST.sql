@@ -1,0 +1,2 @@
+-- ВЫБИРАЕТ ПЛАТНЫЕ facilities У КОТОРЫХ ПЛАТА ЗА КАЖДОГО ЧЛЕНА НЕ ПРЕВЫШАЕТ 1\50 СТОИМОСТИ ЕЖЕМЕСЯЧНОЙ ПЛАТЫ В ТАБЛИЦЕ facilities БД cd 
+SELECT * FROM cd.facilities WHERE membercost != 0 AND monthlymaintenance / 50 >= membercost;

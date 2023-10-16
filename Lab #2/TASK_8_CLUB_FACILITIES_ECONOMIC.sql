@@ -1,0 +1,2 @@
+-- ВЫБИРАЕТ ВСЕ ОБЪЕКТЫ ОБОЗНАЧАЯ КАЖДЫЙ КАЧЕСТВЕННОЙ СТОИМОСТЬЮ (ДЕШЕВЫЙ ИЛИ ДОРОГОЙ) В ТАБЛИЦЕ facilities БД cd
+SELECT *, if(monthlymaintenance < 100, 'дешевый', 'дорогой') as qualitycost FROM cd.facilities;

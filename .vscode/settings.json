@@ -12,6 +12,19 @@
             "name": "mydb",
             "database": "world",
             "username": "sqluser"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "all_db",
+            "database": "cd",
+            "username": "sqluser"
         }
     ]
 }

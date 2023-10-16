@@ -1,0 +1,1 @@
+SELECT Name, Population from world.city LIMIT 15;
