@@ -1,0 +1,1 @@
+SELECT * FROM world.city WHERE name LIKE 'a%';
