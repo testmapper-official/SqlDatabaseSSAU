@@ -1,7 +1,4 @@
--- Выбирает ВСЕ ЗАПИСИ членов клуба (повторяющиеся исключены), в какой они объект ходят в формате: Имя объекта - Имя Фамилия.
-SELECT DISTINCT CONCAT(facility, ' - ', firstname, ' ', surname) as occupation
-    FROM cd.bookings as book
-    INNER JOIN
-    cd.facilities as fac ON fac.facid = book.facid
-    INNER JOIN
-    cd.members as mem ON mem.memid = book.memid;
+-- Объединяет всех ФИ членов клуба и названия объектов в один столбец запроса.
+SELECT DISTINCT CONCAT(firstname, ' ', surname) as 'Members and Facilities' FROM cd.members WHERE firstname != 'GUEST' OR surname != 'GUEST'
+UNION
+SELECT DISTINCT facility FROM cd.facilities;
