@@ -7,9 +7,9 @@ SELECT
             fac.guestcost * book.slots,
             fac.membercost * book.slots
             )
-        ) as income
+        ) - COUNT(DISTINCT MONTH(book.starttime)) * fac.monthlymaintenance as income
 FROM cd.facilities as fac
     LEFT JOIN cd.bookings as book ON book.facid = fac.facid
     LEFT JOIN cd.members as mem ON book.memid = mem.memid
-GROUP BY fac.facility
+GROUP BY fac.facility, fac.monthlymaintenance
 ORDER BY income;
