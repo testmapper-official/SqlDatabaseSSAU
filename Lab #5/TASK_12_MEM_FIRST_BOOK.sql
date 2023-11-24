@@ -6,5 +6,5 @@ SELECT
     MIN(book.starttime) as firstdate
 FROM cd.members as mem
 LEFT JOIN cd.bookings as book ON mem.memid = book.memid
+WHERE DATE(book.starttime) > '2012-09-01'
 GROUP BY mem.memid
-HAVING DATE(firstdate) > '2012-09-01'

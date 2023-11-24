@@ -1,15 +1,20 @@
--- Выводит ID объекта с наибольшим количеством слотов.
--- WITH fac_slots AS (
---     SELECT facid, facility, SUM(book.slots) as rent_count
---     FROM cd.facilities as fac
---     LEFT JOIN cd.bookings as book ON book.facid = fac.facid
---     GROUP BY fac.facid
--- );
-
-SELECT facility, rent_count
-FROM cd.facilities as fac, (
-    SELECT MAX(SUM(book.slots)) as max_rent
+-- Выводит ID объекта с наибольшим количеством слотов (учитывая все записи на каждый объект)
+WITH
+slots_table AS(
+    SELECT
+        fac.facid
+    ,   SUM(book.slots) as slots 
     FROM cd.facilities as fac
-    LEFT JOIN cd.bookings as book ON book.facid = fac.facid
+    LEFT JOIN cd.bookings as book ON fac.facid = book.facid
+    GROUP BY fac.facid
+),
+rank_table AS(
+    SELECT
+        facid
+    ,   slots
+    ,   RANK() OVER (ORDER BY slots DESC) as self_rank 
+    FROM slots_table
 )
-WHERE rent_count = max_rent;
+SELECT DISTINCT facid
+FROM rank_table
+WHERE self_rank = 1;
