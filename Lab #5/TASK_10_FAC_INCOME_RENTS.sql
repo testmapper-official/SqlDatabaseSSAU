@@ -11,7 +11,7 @@ WITH incomes as (
     GROUP BY fac.facid, month
 )
 SELECT
-    facid
+    IFNULL(facid, 0) as facid
 ,   IFNULL(month, 'Total') as month
 ,   SUM(slots) as total_slots
 FROM incomes
