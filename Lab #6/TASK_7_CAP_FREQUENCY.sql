@@ -2,7 +2,7 @@
 
 SELECT
     LEFT(surname, 1) as capital,
-    COUNT(LEFT(surname, 1)) as count
+    COUNT(*) as count
 FROM cd.members
 GROUP BY capital
 ORDER BY capital DESC;
