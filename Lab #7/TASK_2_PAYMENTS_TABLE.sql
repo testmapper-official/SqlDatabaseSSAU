@@ -24,7 +24,7 @@ DROP TRIGGER IF EXISTS onBookingDelete;
 
 CREATE TRIGGER onBookingDelete BEFORE DELETE ON bookings FOR EACH ROW
 BEGIN 
-    IF (    NOT EXISTS (
+    IF (    EXISTS (
                 SELECT 1
                 FROM payments as pay
                 WHERE pay.bookid = old.bookid
