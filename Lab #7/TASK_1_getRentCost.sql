@@ -9,9 +9,11 @@ CREATE FUNCTION getRentCost(memid INT, facid INT, slots INT) RETURNS INT
     NOT DETERMINISTIC
 BEGIN
     DECLARE income INT;
-    SET income = (SELECT IF(memid = 0, guestcost, membercost) * slots
-    FROM facilities
-    WHERE facid = facilities.facid);
+    SET income = (
+        SELECT IF(memid = 0, guestcost, membercost) * slots
+        FROM facilities
+        WHERE facid = facilities.facid
+    );
     RETURN income;
 END $$
 
