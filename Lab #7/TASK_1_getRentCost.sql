@@ -1,20 +1,22 @@
 -- Функция расчета стоимости аренды записи бронирования.
-DROP FUNCTION IF EXISTS getRentCost;
 
-CREATE FUNCTION getRentCost (bid INTEGER) RETURNS INTEGER
-    DETERMINISTIC
-BEGIN
-    DECLARE rent_cost INTEGER DEFAULT 0;
-    -- Хотя это должно быть очень плохо, на каждую запись одного запроса создавать еще запрос. Но поскольку функция должна что-то возвращать, то...
-	SELECT IF(
-            book.memid = 0,
-            fac.guestcost,
-            fac.membercost
-        ) * book.slots INTO rent_cost
-    FROM cd.bookings as book
-    JOIN cd.facilities as fac ON book.facid = fac.facid
-    WHERE book.bookid = bid;
-    RETURN rent_cost;
-END;
+USE cd;
 
-SELECT bookid, getRentCost(bookid) as rent_cost FROM cd.bookings;
+DELIMITER $$
+
+DROP FUNCTION IF EXISTS getRentCost //
+CREATE FUNCTION getRentCost(memid INT, facid INT, slots INT) RETURNS INT
+  READS SQL DATA
+  NOT DETERMINISTIC
+  BEGIN
+    DECLARE income INT;
+    SET income = (SELECT IF(memid = 0, guestcost, membercost) * slots
+                   FROM facilities
+                   WHERE facid = facilities.facid);
+    RETURN income;
+  END $$
+
+DELIMITER ;
+
+SELECT getRentCost(memid, facid, slots)
+  FROM bookings;
