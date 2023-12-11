@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS Realtor (
 
 CREATE TABLE IF NOT EXISTS Apartment (
     ID INT PRIMARY KEY,
-    holderID INT REFERENCES Holder(ID),
-    realtorID INT REFERENCES Realtor(ID),
+    holderID INT,
+    realtorID INT,
     FOREIGN KEY (holderID) REFERENCES Holder(ID),
     FOREIGN KEY (realtorID) REFERENCES Realtor(ID),
 
