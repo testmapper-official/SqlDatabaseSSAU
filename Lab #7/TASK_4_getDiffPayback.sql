@@ -3,7 +3,7 @@ USE cd;
 
 DELIMITER $$
 
--- TODO: уточнить задание очно.
+-- TODO: уточнить задание.
 
 DROP PROCEDURE IF EXISTS getNewCostPreviousBased $$
 CREATE FUNCTION getNewCostPreviousBased(facid INT, currentCost DECIMAL(10, 2), percent DECIMAL(10,2)) RETURNS DECIMAL(10, 2)
