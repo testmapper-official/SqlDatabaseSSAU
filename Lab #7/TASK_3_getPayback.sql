@@ -11,7 +11,11 @@ BEGIN
     SELECT
         b.facid
     ,   f.facility
-    ,   f.initialoutlay / (SUM(p.payment) - f.monthlymaintenance) AS occupacy
+    ,   IF(
+            SUM(p.payment) = f.monthlymaintenance
+        ,   1e300
+        ,	f.initialoutlay / (SUM(p.payment) - f.monthlymaintenance)
+        ) AS occupacy
     FROM bookings AS b
     JOIN payments AS p ON b.bookid = p.bookid
     JOIN facilities AS f ON b.facid = f.facid
